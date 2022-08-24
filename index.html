@@ -1,0 +1,84 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=1">
+    <title>تحويل الصوت الى نص </title>
+    <style>
+  
+        body {
+            font-family: arial;
+            font-size: 16px;
+            margin: 0;
+            background: linear-gradient( to right bottom, #0000ff 0%, #ff66ff 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            color: #000;
+        }
+
+        .voice_to_text {
+            width: 600px;
+            text-align: center;
+        }
+
+        #convert_text {
+            width: 100%;
+            height: 200px;
+            border-radius: 10px;
+            resize: none;
+            padding: 10px;
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        h1 {
+            font-size: 50px;
+            color: #fff;
+        }
+
+        button {
+            padding: 12px 20px;
+            background: #b6ff00;
+            border: 0;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="voice_to_text">
+        <h1> تحويل الصوت إلى نص  </h1>
+        <textarea id="convert_text" ></textarea>
+        <button id="click_to_convert">تحدث</button>
+    </div>
+
+    <script>
+
+        click_to_convert.addEventListener('click',function(){
+  var speech = true;
+  window.SpeechRecognition = window.webkitSpeechRecognition;
+  const recognition = new SpeechRecognition();
+  recognition.lang='ar';
+  recognition.interimResult = true;
+
+  recognition.addEventListener('result',e=>{
+    const transcript = Array.from(e.results)
+    .map(result =>result[0])
+    .map(result =>result.transcript)
+
+    convert_text.innerHTML = transcript;
+  })
+
+  if(speech == true){
+    recognition.start();
+  }
+})
+
+    </script>
+</body>
+
+</html>
